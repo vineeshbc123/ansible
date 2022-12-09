@@ -1,0 +1,4 @@
+---
+# vars file for TOMCAT
+
+tomcat_port_number: "8008"

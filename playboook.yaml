@@ -1,0 +1,23 @@
+---
+- name: install playbook
+  hosts: all
+  tasks: 
+    - name: installing git
+      apt:
+        name: tree
+        state: latest
+
+    - name: ensuring sshd status
+      service:
+        name: sshd
+        state: started
+
+    - name: running apt update
+      apt:
+        update_cache: true
+
+    - name: to create a file
+      file:
+        path: /root/file_test
+        state: touch
+        mode: 0777

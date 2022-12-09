@@ -1,0 +1,14 @@
+---
+- name: install playbook
+  hosts: all
+  tasks: 
+    - name: installing git
+      apt:
+        name: tree
+        state: latest
+
+    - name: ensuring sshd status
+       service:
+        name: sshd
+        state: started
+

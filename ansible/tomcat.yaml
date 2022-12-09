@@ -1,0 +1,27 @@
+---
+- name: installing tomcat
+  hosts: all
+  tasks:
+
+    - name: running apt update
+      apt:
+        update_cache: true
+
+    - name: installing jdk
+      apt: 
+        name: default-jdk
+        state: latest
+
+    - name: download tomcat
+      get_url: 
+        url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+        dest: /opt/
+
+    - name: extract the packages
+      unarchive: 
+        src: "/opt/apache-tomcat-10.0.27.tar.gz"
+        dest: /opt/
+        remote_src: yes
+
+    - name: strat tomcat
+      shell: nohup /opt/apache-tomcat-10.0.27/bin/startup.sh

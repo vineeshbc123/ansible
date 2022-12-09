@@ -1,0 +1,37 @@
+---
+- name: copying the file
+  hosts: all
+  tasks:
+    - name: installing multiple packages
+      apt: 
+        name: "{{ item }}"
+        state: latest
+      with_items:
+          - default-jdk
+          - git
+          - tree
+
+    - name: copying the files
+      when: inventory_hostname in groups ['test_server']
+      copy: 
+        src: tomcat.yaml
+        dest: /root/
+        mode: 777
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      become: true
+
+    - name: template module
+      template:
+        src: tomcat.j2
+        dest: /root/tomcat.yaml
+      become: true  
+
+    - name: copying multiple files
+      template: 
+        src: "{{ item }}" 
+        dest: /root/
+      with_items:
+        - tomcat.yaml
+        - jenk.yaml
+        - jenkins.yaml
