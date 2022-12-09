@@ -1,0 +1,4 @@
+---
+# defaults file for Jenkins
+jenkins_url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+jenkins_repo: deb http://pkg.jenkins.io/debian-stable binary/

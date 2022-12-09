@@ -1,0 +1,26 @@
+---
+# tasks file for jenkins
+- name: update the system packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: java installation
+  apt:
+    name: default-jdk
+
+- name: key generation
+  apt_key:
+    url: "{{ jenkins_url }}"
+    state: present
+
+- name: config repo
+  apt_repository:
+    repo: "{{ jenkins_repo }}"
+    state: present
+
+- name: ensure jenkins is installed
+  apt: name=jenkins update_cache=yes
+
+- name: ensure jenkins is running
+  service: name=jenkins state=started
